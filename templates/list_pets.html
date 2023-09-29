@@ -1,0 +1,26 @@
+{% extends 'base.html' %} {% block title %} Home Page {% endblock %} {% block
+content %}
+<div class="container">
+  <h1 class="text-muted display-1">Pets</h1>
+  {% for pet in pets %}
+  <div class="container pet-container d-inline-block">
+    <a href="/{{pet.id}}">
+      <img
+        class="img-thumbnail"
+        src="{{pet.photo_url}}"
+        alt="{{pet.name}} the {{pet.species}}"
+    /></a>
+    <caption class="text-muted d-inline-block">
+      <a
+        class="text-decoration-none text-success d-inline-block"
+        href="/{{pet.id}}"
+        >{{pet.name}}</a
+      >
+      {% if pet.available %} is available! {% else %} is not available. {% endif
+      %}
+    </caption>
+  </div>
+  {% endfor %}
+  <a href="/add" class="btn btn-success btn-lg">Add a Pet</a>
+</div>
+{% endblock %}

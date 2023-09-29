@@ -1,0 +1,35 @@
+{% extends 'base.html' %} {% block title %} {{pet.name}} Details! {% endblock %}
+{% block content %}
+<div class="container">
+  <div class="container details-container">
+    <img
+      class="img-thumbnail"
+      src="{{pet.photo_url}}"
+      alt="{{pet.name}} the {{pet.species}}"
+    />
+  </div>
+  <h1 class="display-1 text-muted">{{pet.name}}</h1>
+  <h4 class="text-capitalize">Species: {{pet.species}}</h4>
+  {% if pet.age %}
+  <h4>Age: {{pet.age}}</h4>
+  {% endif %}
+  <form class="form" action="/{{pet.id}}" method="POST">
+            {{ form.hidden_tag() }} {% for field in form if field.widget.input_type
+        != 'hidden'%}
+        <div class="form-group">
+          {{field.label}}{% if field.type == 'BooleanField' %} {{
+          field(class_="form-check") }} {% else %} {{
+          field(class_="form-control") }} {% endif %}{% for err in field.errors
+          %}
+          <small class="form-text text-danger"> {{err}} </small>
+          {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+    <div class="text-center mt-4">
+      <a href="/" class="btn btn-outline-primary mx-2">Cancel</a>
+      <button class="btn btn-success mx-2">Save</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
